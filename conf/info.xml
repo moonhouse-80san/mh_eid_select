@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget version="0.2">
+	<title xml:lang="ko">MH Eid Select</title>
+	<version>1.0</version>
+	<author email_address="mbg1346@naver.com" link="https://moonhouse.co.kr" date="2024. 12. 30">
+		<name xml:lang="ko">팔공산</name>
+		<description xml:lang="ko">확장변수에서 체크된 해당 글 리스트 불러오기</description>
+	</author>
+
+	<extra_vars>
+		<group>
+			<title xml:lang="ko">기본 설정</title>
+			<var id="module_srls">
+				<type>module_srl_list</type>
+				<name xml:lang="ko">대상 모듈</name>
+				<description xml:lang="ko">선택하신 모듈에 등록된 글을 대상으로 합니다.</description>
+			</var>
+			<var id="category_srl">
+				<type>text</type>
+				<name xml:lang="ko">대상 분류 srl값</name>
+				<description xml:lang="ko">표시하고 싶은 분류의 분류 srl값을 입력해 주세요.(비워두면 대상 모듈 전체 출력)</description>
+			</var>
+			<var id="mh_n">
+				<name xml:lang="ko">위젯 NO</name>
+				<type>text</type>
+				<description xml:lang="ko">다수의 위젯 생성시 페이지 기능이 각각 작동하는데 필수 (기본 one)</description>
+			</var>
+			<var id="eid_id">
+				<name xml:lang="ko">확장 변수 ID</name>
+				<type>text</type>
+				<description xml:lang="ko">대상모듈을 해당 게시판으로 지정후 출력할 확장변수의 ID를 작성</description>
+			</var>
+			<var id="eid_id_select_01">
+				<name xml:lang="ko">선택지 01</name>
+				<type>text</type>
+				<description xml:lang="ko">확장변수의 ID의 형식 선택지 01(기본 출력)</description>
+			</var>
+			<var id="eid_id_select_02">
+				<name xml:lang="ko">선택지 02</name>
+				<type>text</type>
+				<description xml:lang="ko">확장변수의 ID의 형식 선택지 02</description>
+			</var>
+			<var id="eid_id_select_03">
+				<name xml:lang="ko">선택지 03</name>
+				<type>text</type>
+				<description xml:lang="ko">확장변수의 ID의 형식 선택지 03</description>
+			</var>
+			<var id="eid_id_select_04">
+				<name xml:lang="ko">선택지 04</name>
+				<type>text</type>
+				<description xml:lang="ko">확장변수의 ID의 형식 선택지 04</description>
+			</var>
+			<var id="eid_id_select_05">
+				<name xml:lang="ko">선택지 05</name>
+				<type>text</type>
+				<description xml:lang="ko">확장변수의 ID의 형식 선택지 05</description>
+			</var>
+			<var id="list_count">
+				<name xml:lang="ko">전체 목록수</name>
+				<type>text</type>
+				<description xml:lang="ko">출력될 전체 목록의 수를 정하실 수 있습니다. (기본 50개)</description>
+			</var>
+			<var id="eid_id_num">
+				<name xml:lang="ko">선택지 목록수</name>
+				<type>text</type>
+				<description xml:lang="ko">각 선택지별 목록수(기본 5)</description>
+			</var>
+			<var id="order_target">
+				<type>select</type>
+				<name xml:lang="ko">정렬 대상</name>
+				<description xml:lang="ko">등록된 순서 또는 변경된 순서로 정렬을 할 수 있습니다.</description>
+				<options>
+					<value>list_order</value>
+					<name xml:lang="ko">최신 등록순</name>
+				</options>
+				<options>
+					<value>update_order</value>
+					<name xml:lang="ko">최근 변경순</name>
+				</options>
+				<options>
+					<value>regdate</value>
+					<name xml:lang="ko">등록 일자순</name>
+				</options>
+				<options>
+					<value>voted_count</value>
+					<name xml:lang="ko">추천수</name>
+				</options>
+				<options>
+					<value>readed_count</value>
+					<name xml:lang="ko">조회수</name>
+				</options>
+				<options>
+					<value>comment_count</value>
+					<name xml:lang="ko">댓글순</name>
+				</options>
+				<options>
+					<value>rand()</value>
+					<name xml:lang="ko">랜덤순</name>
+				</options>
+			</var>
+			<var id="order_type">
+				<name xml:lang="ko">정렬 방법</name>
+				<type>select</type>
+				<description xml:lang="ko">정렬대상을 내림차순 또는 올림차순으로 정렬할 수 있습니다.</description>
+				<options>
+					<name xml:lang="ko">내림차순</name>
+					<value>desc</value>
+				</options>
+				<options>
+					<name xml:lang="ko">올림차순</name>
+					<value>asc</value>
+				</options>
+			</var>
+			<var id="titles">
+				<name xml:lang="ko">★제목글 표시</name>
+				<type>select</type>
+				<description />
+				<options>
+					<name xml:lang="ko">표시</name>
+					<value>Y</value>
+				</options>
+				<options>
+					<name xml:lang="ko">표시하지 않음</name>
+					<value>N</value>
+				</options>
+			</var>
+			<var id="subject_size">
+				<name xml:lang="ko">　┖  제목 폰트 크기</name>
+				<type>text</type>
+				<description xml:lang="ko">제목 폰트 크기를 지정할 수 있습니다. (기본 14px, 숫자만기입)</description>
+			</var>
+			<var id="subject_cut_size">
+				<name xml:lang="ko">　┖  제목 글자수</name>
+				<type>text</type>
+				<description xml:lang="ko">제목 글자수를 지정할 수 있습니다. (0또는 비워주시면 자르지 않습니다)</description>
+			</var>
+			<var id="display_author">
+				<name xml:lang="ko">작성자 표시</name>
+				<type>select</type>
+				<description />
+				<options>
+					<name xml:lang="ko">표시</name>
+					<value>Y</value>
+				</options>
+				<options>
+					<name xml:lang="ko">표시하지 않음</name>
+					<value>N</value>
+				</options>
+			</var>
+			<var id="display_regdate">
+				<name xml:lang="ko">작성일 표시</name>
+				<type>select</type>
+				<description />
+				<options>
+					<name xml:lang="ko">표시</name>
+					<value>Y</value>
+				</options>
+				<options>
+					<name xml:lang="ko">표시하지 않음</name>
+					<value>N</value>
+				</options>
+			</var>
+			<var id="display_comment_count">
+				<name xml:lang="ko">코멘트카운드 표시</name>
+				<description />
+				<type>select</type>
+				<options>
+					<name xml:lang="ko">표시</name>
+					<value>Y</value>
+				</options>
+				<options>
+					<name xml:lang="ko">표시하지 않음</name>
+					<value>N</value>
+				</options>
+			</var>
+			<var id="display_readed_count">
+				<name xml:lang="ko">조회수 표시</name>
+				<description />
+				<type>select</type>
+				<options>
+					<name xml:lang="ko">표시</name>
+					<value>Y</value>
+				</options>
+				<options>
+					<name xml:lang="ko">표시하지 않음</name>
+					<value>N</value>
+				</options>
+			</var>
+			<var id="display_voted_count">
+				<name xml:lang="ko">추천수 표시</name>
+				<description />
+				<type>select</type>
+				<options>
+					<name xml:lang="ko">표시하지 않음</name>
+					<value>N</value>
+				</options>
+				<options>
+					<name xml:lang="ko">표시</name>
+					<value>Y</value>
+				</options>
+			</var>
+			<var id="display_duration_new">
+				<name xml:lang="ko">★아이콘 표시</name>
+				<description />
+				<type>select</type>
+				<options>
+					<name xml:lang="ko">표시</name>
+					<value>Y</value>
+				</options>
+				<options>
+					<name xml:lang="ko">표시하지 않음</name>
+					<value>N</value>
+				</options>
+			</var>
+			<var id="file_icon">
+				<name xml:lang="ko">　┖  파일아이콘 표시</name>
+				<description />
+				<type>select</type>
+				<options>
+					<name xml:lang="ko">표시</name>
+					<value></value>
+				</options>
+				<options>
+					<name xml:lang="ko">표시하지 않음</name>
+					<value>N</value>
+				</options>
+			</var>
+			<var id="show_secret" type="select">
+				<name xml:lang="ko">비밀글 출력</name>
+				<options>
+					<value>N</value>
+					<name xml:lang="ko">출력하지 않음</name>
+				</options>
+				<options>
+					<value>Y</value>
+					<name xml:lang="ko">출력</name>
+				</options>
+			</var>
+			<var id="duration_new">
+				<name xml:lang="ko">New 표시 시간 (hours)</name>
+				<description xml:lang="ko">새로 등록된 게시물의 new 표시시간을 정할 수 있습니다. (시간 단위)</description>
+				<type>text</type>
+			</var>
+		</group>
+
+		<group>
+			<title xml:lang="ko">색상 및 기타 설정</title>
+			<var id="background_color">
+				<name xml:lang="ko">배경 색상</name>
+				<type>color</type>
+				<description xml:lang="ko">보드내 배경 색상을 지정합니다.(기본 투명transparent)</description>
+			</var>
+			<var id="board_line">
+				<name xml:lang="ko">보드 테두리라인 선택</name>
+				<type>select</type>
+				<description xml:lang="ko">보드 테두리라인의 종류를 선택 할 수 있습니다.(기본 실선)</description>
+				<options>
+					<name xml:lang="ko">실선</name>
+					<value>solid</value>
+				</options>
+				<options>
+					<name xml:lang="ko">숨김</name>
+					<value>hidden</value>
+				</options>
+				<options>
+					<name xml:lang="ko">이중선</name>
+					<value>double</value>
+				</options>
+				<options>
+					<name xml:lang="ko">점선</name>
+					<value>dotted</value>
+				</options>
+				<options>
+					<name xml:lang="ko">끊어진 라인</name>
+					<value>dashed</value>
+				</options>
+				<options>
+					<name xml:lang="ko">입체 돌출</name>
+					<value>ridge</value>
+				</options>
+				<options>
+					<name xml:lang="ko">내부로 들어간 듯</name>
+					<value>inset</value>
+				</options>
+				<options>
+					<name xml:lang="ko">바깥으로 돌출</name>
+					<value>outset</value>
+				</options>
+				<options>
+					<name xml:lang="ko">홈이 파진 듯</name>
+					<value>groove</value>
+				</options>
+			</var>
+			<var id="board_line_width">
+				<name xml:lang="ko">보드 테두리라인 굵기</name>
+				<type>text</type>
+				<description xml:lang="ko">보드 테두리라인의 굵기를 정하실 수 있습니다. (기본 1px)</description>
+			</var>
+			<var id="board_line_color">
+				<name xml:lang="ko">라인 색상</name>
+				<type>color</type>
+				<description xml:lang="ko">보드 라인 색상을 지정합니다.(기본 #f2f2f2)</description>
+			</var>
+			<var id="titles_font_color">
+				<name xml:lang="ko">제목 폰트 색상</name>
+				<type>color</type>
+				<description xml:lang="ko">보드 제목폰트 색상을 지정합니다.(기본 스킨컬러셋)</description>
+			</var>
+			<var id="hover_bcolor">
+				<name xml:lang="ko">Hover 배경 색상</name>
+				<type>color</type>
+				<description xml:lang="ko">마우스 Hover시 배경색상을 지정합니다.(기본 투명 / #f9f9f9적당)</description>
+			</var>
+			<var id="hover_color">
+				<name xml:lang="ko">Hover 텍스트 색상(List,FT)</name>
+				<type>color</type>
+				<description xml:lang="ko">마우스 Hover시 텍스트 색상을 지정합니다.(기본 변화없음)</description>
+			</var>
+			<var id="hover_lcolor">
+				<name xml:lang="ko">Hover시 테두리</name>
+				<type>select</type>
+				<description xml:lang="ko">마우스 Hover시 테두리라인을 지정합니다.</description>
+				<options>
+					<name xml:lang="ko">표시</name>
+					<value></value>
+				</options>
+				<options>
+					<name xml:lang="ko">표시하지 않음</name>
+					<value>N</value>
+				</options>
+			</var>
+			<var id="lh_color">
+				<type>select</type>
+				<name xml:lang="ko">Hover 라인 색상</name>
+				<description xml:lang="ko">박스 마우스 hover시 테두리 색상(기본 스킨 컬러셋)</description>
+				<options>
+					<value></value>
+					<name xml:lang="ko">스킨 컬러셋</name>
+				</options>
+				<options>
+					<value>black</value>
+					<name xml:lang="ko">검정색</name>
+				</options>
+				<options>
+					<value>white</value>
+					<name xml:lang="ko">하얀색</name>
+				</options>
+				<options>
+					<value>red</value>
+					<name xml:lang="ko">빨강색</name>
+				</options>
+				<options>
+					<value>orange</value>
+					<name xml:lang="ko">주황색</name>
+				</options>
+				<options>
+					<value>yellow</value>
+					<name xml:lang="ko">노랑색</name>
+				</options>
+				<options>
+					<value>green</value>
+					<name xml:lang="ko">초록색</name>
+				</options>
+				<options>
+					<value>blue</value>
+					<name xml:lang="ko">파랑색</name>
+				</options>
+				<options>
+					<value>rgb(0, 0, 139)</value>
+					<name xml:lang="ko">남색</name>
+				</options>
+				<options>
+					<value>rgb(132, 112, 255)</value>
+					<name xml:lang="ko">보라색</name>
+				</options>
+				<options>
+					<value>rgb(255, 215, 0)</value>
+					<name xml:lang="ko">황금색</name>
+				</options>
+				<options>
+					<value>rgb(255, 192, 203)</value>
+					<name xml:lang="ko">분홍색</name>
+				</options>
+				<options>
+					<value>rgb(191, 239, 255)</value>
+					<name xml:lang="ko">하늘색</name>
+				</options>
+				<options>
+					<value>rgb(211, 211, 211)</value>
+					<name xml:lang="ko">회색</name>
+				</options>
+			</var>
+			<var id="hover_lwidth">
+				<name xml:lang="ko">Hover시 테두리라인 굵기</name>
+				<type>text</type>
+				<description xml:lang="ko">마우스Hover시 테두리라인 굵기를 지정합니다.(기본 1px)</description>
+			</var>
+			<var id="sm_width">
+				<name xml:lang="ko">스마트폰 뷰 가로 비율</name>
+				<type>text</type>
+				<description xml:lang="ko">스마트폰으로 뷰시 가로 비율. (기본 100)</description>
+			</var>
+		</group>
+
+		<group>
+			<title xml:lang="ko">출력 설정</title>
+			<var id="group_view">
+				<type>select</type>
+				<name xml:lang="ko">Group지정별 표시</name>
+				<description xml:lang="ko">Group을 지정해서 위젯의 노출을 나타냅니다.</description>
+				<options>
+					<value></value>
+					<name xml:lang="ko">Group지정안함(기본)</name>
+				</options>
+				<options>
+					<value>Y</value>
+					<name xml:lang="ko">Group지정사용</name>
+				</options>
+			</var>
+			<var id="group_srls">
+				<type>member_group</type>
+				<name xml:lang="ko">　┖  Group지정사용시 선택한 그룹만 노출</name>
+				<description xml:lang="ko"><![CDATA[선택한 그룹의 사용자에게만 노출 됩니다. (선택하지 않으면 모든 그룹 노출 가능.)]]></description>
+			</var>
+			<var id="point_p">
+				<type>text</type>
+				<name xml:lang="ko">　┖  Group지정안함시 포인트로 노출설정</name>
+				<description xml:lang="ko">Group지정하지 않고 지정한 포인트이상에서만 위젯이 노출됩니다.(기본 0)</description>
+			</var>
+			<var id="level_p">
+				<type>text</type>
+				<name xml:lang="ko">　┖  Group지정안함시 레벨로 노출설정</name>
+				<description xml:lang="ko">Group지정하지 않고 지정한 레벨이상에서만 위젯이 노출됩니다.(기본 0)</description>
+			</var>
+			<var id="view_menuname">
+				<name>모듈명</name>
+				<type>select</type>
+				<description>모듈명을 보여줍니다.</description>
+				<options>
+					<name>보기</name>
+					<value>on</value>
+				</options>
+				<options>
+					<name>끄기</name>
+					<value>off</value>
+				</options>
+			</var>
+			<var id="menuname">
+				<name>　┖  모듈명 대상</name>
+				<type>select</type>
+				<description>모듈명으로 사용할 이름</description>
+				<options>
+					<name>브라우저 제목</name>
+					<value>browser_title</value>
+				</options>
+			</var>
+			<var id="menuname_s">
+				<name>List 모듈칸 선택</name>
+				<type>select</type>
+				<description>List 스킨 선택시 모듈명 칸을 표시합니다.</description>
+				<options>
+					<name>표시</name>
+					<value>Y</value>
+				</options>
+				<options>
+					<name>표시하지 않음</name>
+					<value>N</value>
+				</options>
+			</var>
+			<var id="view_category">
+				<name>분류명</name>
+				<type>select</type>
+				<description>분류명이 있으면 보여줍니다.</description>
+				<options>
+					<name>보기</name>
+					<value>on</value>
+				</options>
+				<options>
+					<name>끄기</name>
+					<value>off</value>
+				</options>
+			</var>
+			<var id="category_s">
+				<name>List 분류명 선택</name>
+				<type>select</type>
+				<description>List 스킨 선택시 분류명 칸을 표시합니다.</description>
+				<options>
+					<name>표시</name>
+					<value>Y</value>
+				</options>
+				<options>
+					<name>표시하지 않음</name>
+					<value>N</value>
+				</options>
+			</var>
+			<var id="extra_var_num">
+				<name>확장값 번호</name>
+				<type>select</type>
+				<description>선택한 번호의 확장 변수 값을 보여줍니다.</description>
+				<options><name>사용 안함</name><value></value></options>
+				<options><name>1</name><value>1</value></options>
+				<options><name>2</name><value>2</value></options>
+				<options><name>3</name><value>3</value></options>
+				<options><name>4</name><value>4</value></options>
+				<options><name>5</name><value>5</value></options>
+				<options><name>6</name><value>6</value></options>
+				<options><name>7</name><value>7</value></options>
+				<options><name>8</name><value>8</value></options>
+				<options><name>9</name><value>9</value></options>
+				<options><name>10</name><value>10</value></options>
+				<options><name>11</name><value>11</value></options>
+				<options><name>12</name><value>12</value></options>
+				<options><name>13</name><value>13</value></options>
+				<options><name>14</name><value>14</value></options>
+				<options><name>15</name><value>15</value></options>
+				<options><name>16</name><value>16</value></options>
+				<options><name>17</name><value>17</value></options>
+				<options><name>18</name><value>18</value></options>
+				<options><name>19</name><value>19</value></options>
+				<options><name>20</name><value>20</value></options>
+			</var>
+			<var id="ex_name1">
+				<type>text</type>
+				<name xml:lang="ko">확장변수 제목</name>
+				<description xml:lang="ko"></description>
+			</var>
+			<var id="list_high">
+				<name xml:lang="ko">칸 높이</name>
+				<type>text</type>
+				<description xml:lang="ko">세로놓이를 정하실 수 있습니다. (기본 10px 숫자만기입)</description>
+			</var>
+			<var id="sticky_select">
+				<name xml:lang="ko">★List형 좌우 스크롤 기능 고정칼럼 선택</name>
+				<type>select</type>
+				<description xml:lang="ko">List형의 좌우 항목이 많아서 좌우 수평 스크롤, 스와이프 기능 적용시 고정칼럼을 선택하는 항목
+				* https://moonhouse.co.kr/xetip/554284</description>
+				<options>
+					<name xml:lang="ko">없음</name>
+					<value></value>
+				</options>
+				<options>
+					<name xml:lang="ko">제목</name>
+					<value>1</value>
+				</options>
+				<options>
+					<name xml:lang="ko">카테고리</name>
+					<value>2</value>
+				</options>
+				<options>
+					<name xml:lang="ko">확장변수1</name>
+					<value>3</value>
+				</options>
+				<options>
+					<name xml:lang="ko">확장변수2</name>
+					<value>4</value>
+				</options>
+				<options>
+					<name xml:lang="ko">이름</name>
+					<value>5</value>
+				</options>
+			</var>
+			<var id="sticky_bcolor">
+				<type>color</type>
+				<name xml:lang="ko">　┖ 고정칸 배경색상</name>
+				<description xml:lang="ko">고정 확장변수칸 배경색상을 지정.(기본 #fff)</description>
+			</var>
+		</group>
+	</extra_vars>
+</widget>

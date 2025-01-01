@@ -1,0 +1,19 @@
+<query id="getMhEidSelect" action="select">
+    <tables>
+        <table name="documents" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+    <conditions>
+        <condition operation="in" column="module_srl" var="module_srl" filter="number" />
+        <condition operation="notequal" column="status" default="TEMP" pipe="and" />
+        <condition operation="equal" column="documents.category_srl" var="category_srl" pipe="and" />
+		<condition operation="excess" column="list_order" var="avoid_notice" pipe="and" />
+		<condition operation="in" column="status" var="statusList" pipe="and" />
+    </conditions>
+    <navigation>
+        <index var="sort_index" default="list_order" order="order_type" />
+        <list_count var="list_count" default="50" />
+    </navigation>
+</query>

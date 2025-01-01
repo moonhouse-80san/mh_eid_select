@@ -1,0 +1,76 @@
+<div id="mhbox_eid{$no}" class="mhbox_eid">
+
+	<div class="select-filters">
+		<button cond="$wi->eid_id_select_01" type="button" class="filter-btn" data-select="{$wi->eid_id_select_01}">{$wi->eid_id_select_01}</button>
+		<button cond="$wi->eid_id_select_02" type="button" class="filter-btn" data-select="{$wi->eid_id_select_02}">{$wi->eid_id_select_02}</button>
+		<button cond="$wi->eid_id_select_03" type="button" class="filter-btn" data-select="{$wi->eid_id_select_03}">{$wi->eid_id_select_03}</button>
+		<button cond="$wi->eid_id_select_04" type="button" class="filter-btn" data-select="{$wi->eid_id_select_04}">{$wi->eid_id_select_04}</button>
+		<button cond="$wi->eid_id_select_05" type="button" class="filter-btn" data-select="{$wi->eid_id_select_05}">{$wi->eid_id_select_05}</button>
+	</div>
+
+	<table class="mhboard_eid content-area" style="margin-top:0px">
+		<thead>
+			<tr>
+					<th cond="$wi->menuname_s== 'Y'" class="mw">게시판</th>
+					<th cond="$wi->category_s== 'Y' && !Mobile::isMobileCheckByAgent()" id=<!--@if($wi->sticky_select == '2')-->"c_fixed"<!--@end-->>Category</th>
+					<th id=<!--@if($wi->sticky_select == '1')-->"t_fixed"<!--@end--> style="min-width:250px">제목</th>
+					<th cond="$wi->ex_name1" class="mw" id=<!--@if($wi->sticky_select == '3')-->"e1_fixed"<!--@end-->>{$wi->ex_name1}</th>
+					<th cond="$wi->display_author== 'Y' && !Mobile::isMobileCheckByAgent()" class="mw" id=<!--@if($wi->sticky_select == '5')-->"n_fixed"<!--@end-->>글쓴이</th>
+					<th cond="$wi->display_regdate == 'Y' && !Mobile::isMobileCheckByAgent()" class="mw">날짜</th>
+					<th cond="$wi->display_readed_count== 'Y' && !Mobile::isMobileCheckByAgent()" class="mw">조회수</th>
+					<th cond="$wi->display_voted_count== 'Y' && !Mobile::isMobileCheckByAgent()" class="mw">추천수</th>
+			</tr>
+		</thead>
+
+		<!--@foreach($wi->document_list as$oDocument)-->
+			<!--@if($document_count[$oDocument->getExtraEidValueHTML($wi->eid_id)] < $wi->eid_id_num)-->
+				{@$document_count[$oDocument->getExtraEidValueHTML($wi->eid_id)]++}
+				<tbody<!--@if(Mobile::isMobileCheckByAgent())--> style="cursor:pointer;" onclick="location.href='{getUrl('','document_srl',$oDocument->document_srl)}';"<!--@end-->>
+					<tr class="content-item" data-select="{$oDocument->getExtraEidValueHTML($wi->eid_id)}">
+						<td cond="$wi->menuname_s== 'Y'" class="menuname">
+							<a cond="$oDocument->menuname" href="{getUrl('','mid',$oDocument->mid)}">{$oDocument->menuname}</a>
+						</td>
+						<td cond="$wi->category_s == 'Y' && !Mobile::isMobileCheckByAgent()" class="category" id=<!--@if($wi->sticky_select == '2')-->"c_fixed"<!--@end-->>
+							<a cond="$oDocument->category->title" href="{getUrl('','mid',$oDocument->mid,'category',$oDocument->category_srl)}" >{$oDocument->category->title}</a>
+						</td>
+
+						<td class="title cor" id=<!--@if($wi->sticky_select == '1')-->"t_fixed"<!--@end--> style="min-width:250px">
+							<em class="replyNum" title="Replies">
+								<a cond="$wi->display_comment_count== 'Y' && $oDocument->getCommentCount()" href="{$oDocument->getPermanentUrl()}#comment" style="padding:3px; background:#87CEFA; color:#fff; margin-right:3px; border-radius:3px">{$oDocument->getCommentCount()}</a>
+							</em>
+
+							<a href="{$oDocument->getPermanentUrl()}" class="mtitle {$colorset}">
+								<!--@if($oDocument->isSecret() && !$oDocument->isGranted())-->
+									비밀글 입니다.
+								<!--@else-->
+									{$oDocument->getTitleText($wi->subject_cut_size)}
+									<span cond="$wi->display_duration_new == 'Y'" class="icon">{$oDocument->printExtraImages($wi->duration_new* 60*60)}</span>
+								<!--@end-->
+							</a>
+						</td>
+
+						<td cond="$wi->ex_name1" id=<!--@if($wi->sticky_select == '3')-->"e1_fixed"<!--@end-->>
+							{$oDocument->extra_value}
+						</td>
+
+						<td cond="$wi->display_author== 'Y' && !Mobile::isMobileCheckByAgent()" <!--@if($wi->sticky_select == '5')-->id="n_fixed"<!--@end-->>
+							<a href="#" onclick="return false;" class="member_{$oDocument->get('member_srl')}">{$oDocument->getNickName()}</a>
+						</td>
+
+						<td cond="$wi->display_regdate == 'Y' && !Mobile::isMobileCheckByAgent()">
+							{$oDocument->getRegdate('Y.m.d')}
+						</td>
+
+						<td cond="$wi->display_readed_count== 'Y' && !Mobile::isMobileCheckByAgent()" style="min-width:60px; text-align:right">
+							{number_format($oDocument->get('readed_count'))}
+						</td>
+
+						<td cond="$wi->display_voted_count== 'Y' && !Mobile::isMobileCheckByAgent() && $oDocument->get('voted_count')>0" class="replyNum cor" title="Voted" style="min-width:60px">
+							<i class="far fa-thumbs-up {$colorset}"></i> {$oDocument->get('voted_count')}
+						</td>
+					</tr>
+				</tbody>
+			<!--@end-->
+		<!--@end-->
+	</table>
+</div>

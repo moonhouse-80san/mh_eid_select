@@ -1,0 +1,36 @@
+{@ $wi = $widget_info; $no = $wi->mh_n; }
+
+<load target="css/normal.css" />
+<load target="css/color.css" />
+<load target="css/eid.js" />
+
+<style>
+	#mhbox_eid{$no} { padding:8px; border-color:{$wi->board_line_color}; border-style:{$wi->board_line}; border-width:{$wi->board_line_width}px; background:{$wi->background_color}; <!--@if($wi->round_top == 'Y')-->-webkit-border-radius:10px;-moz-border-radius:10px; border-radius:10px;<!--@end-->}
+	#mhbox_eid{$no} .mtitle { font-size:{$wi->subject_size}px; color:{$wi->titles_font_color}; }
+	#mhbox_eid{$no} tbody td { padding:{$wi->list_high}px 12px;}
+	#mhbox_eid{$no} tbody tr:hover { background:{$wi->hover_bcolor}; color:{$wi->hover_color} !important;}
+	#mhbox_eid{$no} tbody tr:hover a { color:{$wi->hover_color} !important;}
+	#t_fixed, #c_fixed, #e1_fixed, #e2_fixed, #n_fixed { background-color:{$wi->sticky_bcolor}; }
+
+	<block cond="!$wi->file_icon == ''">
+		.icon img[alt~="file"] { display:none; }
+	</block>
+	@media all and (max-width: 479px) {
+		#mhbox_eid{$no} .mhboard_eid { max-width:{$wi->sm_width}%; }
+	}
+</style>
+
+<!--@if($wi->group_view == 'Y')-->
+		<!-- 그룹적용 -->
+		<!--@if($is_logged)-->
+			<!--@if($wi->permission)-->
+				<include target="tables.html" />
+			<!--@end-->
+		<!--@end-->
+	<!--@else-->
+		<!-- 그룹적용안함 -->
+		{@ $oPointModel = &getModel('point'); $point = $oPointModel->getPoint($logged_info->member_srl); $oModuleModel = &getModel('module');  $config = $oModuleModel->getModuleConfig('point'); $level = $oPointModel->getLevel($point, $config->level_step); }
+		<!--@if($point < "{$wi->point_p}" || $level < "{$wi->level_p}" )--><!--@else-->
+			<include target="tables.html" />
+		<!--@end-->
+<!--@end-->

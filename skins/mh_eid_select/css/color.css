@@ -1,0 +1,10 @@
+/* Colorset 설정 CSS부분 */
+.cor .black, .cor .black a { color:#000; background:transparent } .cor .top_title .black { background:#000; }
+.cor .white, .cor .white a { color:#fff; background:transparent } .cor .top_title .white { background:#fff; }
+.cor .gray, .cor .gray a { color:#ccc; background:transparent } .cor .top_title .gray { background:#ccc; }
+.cor .blue, .cor .blue a { color:#3871a6; background:transparent } .cor .top_title .blue { background:#3871a6; }
+.cor .skyblue, .cor .skyblue a { color:#84accb; background:transparent } .cor .top_title .skyblue { background:#84accb; }
+.cor .green, .cor .green a { color:#29b80a; background:transparent } .cor .top_title .green { background:#29b80a; }
+.cor .purple, .cor .purple a { color:#764e82; background:transparent } .cor .top_title .purple { background:#764e82; }
+.cor .red, .cor .red a { color:#fe8505; background:transparent} .cor .top_title .red { background:#fe8505; }
+.cor .pink, .cor .pink a { color:#ee80c3; background:transparent } .cor .top_title .pink { background:#ee80c3; }

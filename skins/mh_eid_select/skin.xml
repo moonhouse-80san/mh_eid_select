@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<skin>
+  <title xml:lang="ko">MH 확장자 선택 스킨</title>
+  <maker email_address="mbg1346@naver.com" link="http://moonhouse.co.kr" date="2024. 12. 30">
+    <name xml:lang="ko">팔공산</name>
+    <description xml:lang="ko">
+        디자인 : moon (https://moonhouse.co.kr)
+    </description>
+  </maker>
+    <colorset>
+        <color name="black">
+            <title xml:lang="ko">검정색</title>
+            <title xml:lang="en">black</title>
+        </color>
+        <color name="white">
+            <title xml:lang="ko">흰색</title>
+            <title xml:lang="en">white</title>
+        </color>
+        <color name="gray">
+            <title xml:lang="ko">회색</title>
+            <title xml:lang="en">gray</title>
+        </color>
+        <color name="blue">
+            <title xml:lang="ko">파란색</title>
+            <title xml:lang="en">blue</title>
+        </color>
+        <color name="skyblue">
+            <title xml:lang="ko">하늘색</title>
+            <title xml:lang="en">skyblue</title>
+        </color>
+        <color name="green">
+            <title xml:lang="ko">초록색</title>
+            <title xml:lang="en">green</title>
+        </color>
+        <color name="purple">
+            <title xml:lang="ko">보라색</title>
+            <title xml:lang="en">xe</title>
+        </color>
+        <color name="red">
+            <title xml:lang="ko">빨간색</title>
+            <title xml:lang="en">red</title>
+        </color>
+        <color name="pink">
+            <title xml:lang="ko">핑크색</title>
+            <title xml:lang="en">pink</title>
+        </color>
+	</colorset>
+</skin>
